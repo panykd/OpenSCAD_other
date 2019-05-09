@@ -23,6 +23,7 @@ _thickness = 2;
 // Misc
 _singleFingerDepth = 12;
 
+
 //******************* Tunable Parameters ***********
 
 _handleStart = barrelLength + bevelLength;
@@ -63,6 +64,12 @@ overallLength = internalBoxLength + 2*_thickness;
 overallHeight = internalBoxHeight + _thickness;
 
 lidOffset = internalBoxHeight - (_supportHeight + _supportInsertHeight);
+
+lidWidth = overallWidth - _thickness;
+lidLength = overallLength - _thickness;
+
+
+lidAngle = 45;
 
 // Output the final size of the box;
 echo(overallWidth=overallWidth, overallLength=overallLength, overallHeight=overallHeight);
@@ -212,27 +219,76 @@ module box() {
         linear_extrude(height=_thickness) {
             difference() {
                 square([overallWidth, overallLength]);
-                translate([_thickness / 2, _thickness / 2, 0]) 
+                translate([_thickness/2, _thickness / 2, 0]) 
                     square([overallWidth - _thickness, overallLength - _thickness]);
+                
+                translate([lidWidth + _thickness / 2, lidLength/2 - lidWidth, 0]) {
+                    square([_thickness, lidWidth*2+_thickness]);
+                }
             }
         }
     }
 }
 module lid() {
-    lidWidth = overallWidth -  _thickness;
-    lidLength = overallLength - _thickness;
     
     translate([-lidWidth/2,-_thickness/2,lidOffset]) {
+        rotate([0,-(90-lidAngle),0])
         linear_extrude(height=_thickness) {
-            difference() {
+            union() {
                 square([lidWidth, lidLength]);
                 
-                translate([lidWidth, lidLength/2, 0]) {
-                    circle(r=lidWidth/4);
+                translate([lidWidth-_thickness/2, lidLength/2 - lidWidth, 0]) {
+                    square([_thickness, lidWidth*2]);
                 }
             }
         } 
     }
+}
+
+module hinge(angle = 0) {
     
+    // Width
+    width = 15;
+    depth = 25;
+    thickness = 0.5;
+
+    barrel = 3;
+    
+    plate(width, depth, thickness);
+
+    translate([0, depth/2, barrel/2]) {
+        rotate([0, 90, 0]) cylinder(d=barrel, h=width);
+        
+        rotate([-(180-angle), 0, 0])
+        translate([0,-depth/2,barrel/2-thickness])
+        plate(width, depth, thickness);
+        
+    }
+    
+    module plate(width, depth, thickness) {
+        holeoffset = 6.5;
+        holeSpacing = 12;
+        holeSize = 1.5;
+        
+        _plateDepth = (depth-1)/2;
+        
+        _cutoutTab = 10;
+        _cutoutDiameter = (width - _cutoutTab);
+        
+        linear_extrude(height=thickness)
+        difference() {
+            square([width, _plateDepth]);
+            
+            // Front Cutouts
+            circle(d=_cutoutDiameter);
+            translate([width, 0, 0]) {
+                circle(d=_cutoutDiameter);
+            }
+            
+            // Holes
+            translate([(3+holeSize/2), 5.5+holeSize/2,0]) circle(d=holeSize);
+            translate([width-(3+holeSize/2), 5.5+holeSize/2,0]) circle(d=holeSize);
+        }
+    }
 }
 
