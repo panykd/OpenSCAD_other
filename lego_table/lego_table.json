@@ -1,0 +1,52 @@
+{
+    "parameterSets": {
+        "Bunnings (Metric)": {
+            "legThickness": "19",
+            "legWidth": "89",
+            "overallHeight": "700",
+            "overallLength": "1200",
+            "overallWidth": "800",
+            "shelfDepth": "42",
+            "shelfSupportThickness": "19",
+            "shelfThickness": "12",
+            "slideCurrentExtension": "300",
+            "slideGap": "3",
+            "slideLength": "300",
+            "slideMaxExtension": "300",
+            "slideThickness": "25",
+            "slideWidth": "45",
+            "tableDadoDepth": "5",
+            "tableEdge": "19",
+            "tableHeight": "89",
+            "tableSurfaceOffset": "60",
+            "tableSurfaceThickness": "12",
+            "wellDepth": "150",
+            "wellThickness": "19"
+        },
+        "design default values": {
+            "includeBottomShelf": "true",
+            "legThickness": "19",
+            "legWidth": "89",
+            "overallHeight": "700",
+            "overallLength": "1200",
+            "overallWidth": "800",
+            "shelfDepth": "42",
+            "shelfSupportThickness": "19",
+            "shelfThickness": "12",
+            "slideCurrentExtension": "0",
+            "slideGap": "3",
+            "slideLength": "300",
+            "slideMaxExtension": "300",
+            "slideThickness": "25",
+            "slideWidth": "45",
+            "tableDadoDepth": "4",
+            "tableEdge": "19",
+            "tableHeight": "89",
+            "tableSurfaceOffset": "60",
+            "tableSurfaceThickness": "12",
+            "wellDepth": "150",
+            "wellThickness": "19"
+        }
+    },
+    "fileFormatVersion": "1"
+}
